@@ -2,19 +2,19 @@
 
 Practical work on VDM++
 
-##Goals
-
+## Goals
+ 
 The goal of this practical work is to develop, test and document an executable formal model of a high integrity software system in VDM++ using the Overture tool or the VDMTools. At the end of the work, students should have acquired the ability of formally modeling software systems in VDM++, and of demonstrating the consistency of the model. The work is to be performed by groups of two to three students attending the same class (turma). The groups will be defined and the themes assigned (different themes for different groups in the same class) in the practical classes of the week of 27 November to 1 December 2017.
 
-##Deliverables
+## Deliverables
 
 The project should be organized in a way similar to the Vending Machine example (see the MFES page in Moodle). The practical work should be concluded and the deliverables (final report, VDM++ project files, UML project files) submitted in a .zip file through Moodle until 11pm January 3. It may be applied a penalty of 2 (points out of 20) for each day late. The presentations will be scheduled for the first week of January (4th or 5th of January). Presentation is mandatory for ALL students. If you miss presentation you will get zero points out of twenty.
 
-##Report Structure
+## Report Structure
 
 You should incorporate the developed VDM++ classes in a single report (to be submitted in PDF format), written in English or Portuguese, covering the following items (which are also the assessment items):
 
-Front page with authors, date and context (FEUP, MIEIC, MFES) **[1%]
+Front page with authors, date and context (FEUP, MIEIC, MFES) ** [1%]
 
 Informal system description and list of requirements **[10%]
 
