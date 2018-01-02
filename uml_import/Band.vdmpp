@@ -1,0 +1,19 @@
+class Band
+instance variables
+  name:seq of (char);
+  artists:Artist;
+  genre:seq of (char);
+  foundation:?;
+  description:seq of (char);
+
+operations
+  public  Band : ()  ==> Band
+  Band() ==
+    is not yet specified;
+
+  public  PertformEvent : ()  ==> ?
+  PertformEvent() ==
+    is not yet specified;
+
+
+end Band

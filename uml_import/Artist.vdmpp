@@ -1,0 +1,15 @@
+class Artist
+instance variables
+  instrument:seq of (char);
+
+operations
+  public  Artist : ()  ==> Artist
+  Artist() ==
+    is not yet specified;
+
+  public  PerformEvent : ()  ==> ?
+  PerformEvent() ==
+    is not yet specified;
+
+
+end Artist

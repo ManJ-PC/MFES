@@ -1,0 +1,26 @@
+class Venue
+instance variables
+  address:seq of (char);
+  capacity:seq of (char);
+  calendar:Event;
+  openingTime:seq of (char);
+  closingTime:seq of (char);
+
+operations
+  public  Venue : ()  ==> Venue
+  Venue() ==
+    is not yet specified;
+    
+  public  CheckAvailability : ()  ==> ?
+  CheckAvailability() ==
+    is not yet specified;
+
+  public  AddEvent : ()  ==> ?
+  AddEvent() ==
+    is not yet specified;
+
+  public  CancelEvent : ()  ==> ?
+  CancelEvent() ==
+    is not yet specified;
+
+end Venue

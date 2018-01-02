@@ -1,0 +1,20 @@
+class User
+instance variables
+  name:seq of (char);
+  profileDescription:seq of (char);
+  phone:seq of (char);
+  mail:seq of (char);
+  address:seq of (char);
+  calendar:Event;
+
+operations
+  public  User : ()  ==> User
+  User() ==
+    is not yet specified;
+
+  public  AttendEvent : ()  ==> ?
+  AttendEvent() ==
+    is not yet specified;
+
+
+end User

@@ -1,0 +1,16 @@
+class Event
+instance variables
+  date:?;
+  venue:Venue;
+  band:Band;
+  duration:int;
+  id:int;
+  organizer:Organizer;
+
+operations
+  public  Event : ()  ==> Event
+  Event() ==
+    is not yet specified;
+
+
+end Event
