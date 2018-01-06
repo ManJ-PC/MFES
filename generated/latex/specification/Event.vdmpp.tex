@@ -29,41 +29,62 @@ operations
 \label{SetDate:24}
 @*)
   public SetDate : Date ==> ()
-  SetDate(iDate) == (
-   date:=iDate;
+  SetDate(iDate) == (*@\vdmnotcovered{(}@*)
+   (*@\vdmnotcovered{date}@*):=(*@\vdmnotcovered{iDate}@*);
   )
   pre
-   iDate <> date;
+   (*@\vdmnotcovered{iDate}@*) (*@\vdmnotcovered{<>}@*) (*@\vdmnotcovered{date}@*);
    
 (*@
 \label{SetTime:31}
 @*)
   public SetTime : nat ==> ()
-  SetTime(iTime) == (
+  SetTime(iTime) == (*@\vdmnotcovered{(}@*)
    time:=iTime;
   )
   pre
-   iTime <> time;
+   (*@\vdmnotcovered{iTime}@*) <> (*@\vdmnotcovered{time}@*);
    
 (*@
 \label{SetVenue:38}
 @*)
   public SetVenue : Venue ==> ()
-  SetVenue(iVenue) == (
-   venue:=iVenue;
+  SetVenue(iVenue) == (*@\vdmnotcovered{(}@*)
+   (*@\vdmnotcovered{venue}@*):=(*@\vdmnotcovered{iVenue}@*);
   )
   pre
-   iVenue <> venue;
+   (*@\vdmnotcovered{iVenue}@*) <> (*@\vdmnotcovered{venue}@*);
    
 (*@
 \label{SetBand:45}
 @*)
   public SetBand : Band ==> ()
-  SetBand(iBand) == (
-   band:=iBand;
+  SetBand(iBand) == (*@\vdmnotcovered{(}@*)
+   band:=(*@\vdmnotcovered{iBand}@*);
   )
   pre
-   iBand <> band;
+   (*@\vdmnotcovered{iBand}@*) <> (*@\vdmnotcovered{band}@*);
 
 end Event
 \end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[Event:13]{Event} & 13&100.0\% & 4 \\
+\hline
+\hyperref[SetBand:45]{SetBand} & 45&0.0\% & 0 \\
+\hline
+\hyperref[SetDate:24]{SetDate} & 24&0.0\% & 0 \\
+\hline
+\hyperref[SetTime:31]{SetTime} & 31&0.0\% & 0 \\
+\hline
+\hyperref[SetVenue:38]{SetVenue} & 38&0.0\% & 0 \\
+\hline
+\hline
+Event.vdmpp & & 42.1\% & 4 \\
+\hline
+\end{longtable}
+

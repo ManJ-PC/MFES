@@ -157,6 +157,8 @@ operations
   jyve.AddBand(band1);
   jyve.AddBand(band2);
   
+  jyve.AddVenue(venue1);
+  
   assertEqual(true, jyve.AddEvent(event1));
   assertEqual(true,jyve.AddEvent(event2));
   assertEqual(false, jyve.AddEvent(event3));
@@ -185,9 +187,30 @@ operations
   assertEqual(card jyve.GetArtistByName("art1").events, 1);
   assertEqual(card jyve.GetFanByName("fan1").events, 0);
   assertEqual(card jyve.GetFanByName("fan2").events, 0);
-  assertEqual(card jyve.GetFanByName("org1").events, 2);
+  assertEqual(card jyve.GetOrganizerByName("org1").events, 1);
   
   
  );
 end JyveTest
 \end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[Run:4]{Run} & 4&100.0\% & 1 \\
+\hline
+\hyperref[TestBands:84]{TestBands} & 84&100.0\% & 1 \\
+\hline
+\hyperref[TestEvents:110]{TestEvents} & 110&100.0\% & 1 \\
+\hline
+\hyperref[TestUsers:26]{TestUsers} & 26&100.0\% & 1 \\
+\hline
+\hyperref[TestVenues:68]{TestVenues} & 68&100.0\% & 1 \\
+\hline
+\hline
+JyveTest.vdmpp & & 100.0\% & 5 \\
+\hline
+\end{longtable}
+

@@ -1,0 +1,52 @@
+class Event
+instance variables
+	public name:seq1 of char;
+  public date:Date;
+  public time:nat;
+  public venue:Venue;
+  public band:Band;
+  public organizer:Organizer;
+  
+  inv time < 24;
+
+operations
+  public Event : seq1 of char * Date * nat * Venue * Band * Organizer  ==> Event
+  Event(iName, iDate, iTime, iVenue, iBand, iOrganizer) == (
+	  name:=iName;
+	  date:=iDate;
+	  time:=iTime;
+	  venue:=iVenue;
+	  band:=iBand;
+	  organizer:=iOrganizer;
+	  return self;
+  );
+  
+  public SetDate : Date ==> ()
+  SetDate(iDate) == (
+	  date:=iDate;
+  )
+  pre
+  	iDate <> date;
+  	
+  public SetTime : nat ==> ()
+  SetTime(iTime) == (
+	  time:=iTime;
+  )
+  pre
+  	iTime <> time;
+  	
+  public SetVenue : Venue ==> ()
+  SetVenue(iVenue) == (
+	  venue:=iVenue;
+  )
+  pre
+  	iVenue <> venue;
+  	
+  public SetBand : Band ==> ()
+  SetBand(iBand) == (
+	  band:=iBand;
+  )
+  pre
+  	iBand <> band;
+
+end Event

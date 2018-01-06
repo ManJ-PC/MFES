@@ -13,14 +13,14 @@ operations
 \label{User:11}
 @*)
   public  User : seq1 of char * seq of char * nat * seq1 of char * seq1 of char  ==> User
-  User(iName, iProfileDescription, iPhone, iMail, iAddress) == (
-   name:=iName;
-   profileDescription:=iProfileDescription;
-   phone:=iPhone;
-   mail:=iMail;
-   address:=iAddress;
-   events:={};
-   return self;
+  User(iName, iProfileDescription, iPhone, iMail, iAddress) == (*@\vdmnotcovered{(}@*)
+   (*@\vdmnotcovered{name}@*):=(*@\vdmnotcovered{iName}@*);
+   profileDescription:=(*@\vdmnotcovered{iProfileDescription}@*);
+   (*@\vdmnotcovered{phone}@*):=(*@\vdmnotcovered{iPhone}@*);
+   (*@\vdmnotcovered{mail}@*):=(*@\vdmnotcovered{iMail}@*);
+   (*@\vdmnotcovered{address}@*):=(*@\vdmnotcovered{iAddress}@*);
+   events:=(*@\vdmnotcovered{\{}@*)};
+   return (*@\vdmnotcovered{self}@*);
   );
 
 (*@
@@ -48,3 +48,20 @@ operations
 
 end User
 \end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[AddEvent:22]{AddEvent} & 22&100.0\% & 6 \\
+\hline
+\hyperref[RemoveEvent:31]{RemoveEvent} & 31&100.0\% & 4 \\
+\hline
+\hyperref[User:11]{User} & 11&0.0\% & 0 \\
+\hline
+\hline
+User.vdmpp & & 59.4\% & 10 \\
+\hline
+\end{longtable}
+

@@ -1,0 +1,197 @@
+
+class Jyve
+instance variables
+  public venues:map seq1 of char to Venue:={ |-> };
+  public bands:map seq1 of char to Band:={ |-> };
+  public events:map seq1 of char to Event:={ |-> };
+  public artists:map seq1 of char to Artist:={ |-> };
+  public organizers:map seq1 of char to Organizer:={ |-> };
+  public fans:map seq1 of char to Fan:={ |-> };
+  public calendar:set of Date:={};
+
+operations
+	--add artist
+  public  AddArtist : Artist  ==> ()
+  AddArtist(iArtist) == (
+    artists := artists munion {iArtist.name |-> iArtist};
+	)
+ 	pre 
+ 		iArtist.name not in set dom artists and
+ 		iArtist.name not in set dom organizers and
+ 		iArtist.name not in set dom fans
+  post 
+		artists <> { |-> } and iArtist.name in set dom artists;
+  --get artist by name
+  public GetArtistByName : seq1 of char ==> Artist
+  GetArtistByName(iName) == (
+ 		return artists(iName);
+ 	)
+ 	pre 
+ 		iName in set dom artists;
+ 	
+ 	
+ 	--add organizer
+  public  AddOrganizer : Organizer  ==> ()
+  AddOrganizer(iOrganizer) == (
+    organizers := organizers munion {iOrganizer.name |-> iOrganizer};
+	)
+ 	pre 
+ 		iOrganizer.name not in set dom artists and
+ 		iOrganizer.name not in set dom organizers and
+ 		iOrganizer.name not in set dom fans
+  post 
+		organizers <> { |-> } and iOrganizer.name in set dom organizers;
+  --get organizer by name
+  public GetOrganizerByName : seq1 of char ==> Organizer
+  GetOrganizerByName(iName) == (
+ 		return organizers(iName);
+ 	)
+  pre
+  	iName in set dom organizers;
+  	
+  	
+	--add fan
+  public  AddFan : Fan  ==> ()
+  AddFan(iFan) == (
+    fans := fans munion {iFan.name |-> iFan};
+	)
+ 	pre 
+ 		iFan.name not in set dom artists and
+ 		iFan.name not in set dom organizers and
+ 		iFan.name not in set dom fans
+  post 
+		fans <> { |-> } and iFan.name in set dom fans;
+  --get fan by name
+  public GetFanByName : seq1 of char ==> Fan
+  GetFanByName(iName) == (
+ 		return fans(iName);
+ 	)
+ 	pre iName in set dom fans;
+
+  	
+	--add venue
+  public  AddVenue : Venue  ==> ()
+  AddVenue(iVenue) == (
+    venues := venues munion {iVenue.name |-> iVenue};
+	)
+  pre
+  	iVenue.name not in set dom venues
+  post 
+		venues <> { |-> } and iVenue.name in set dom venues;
+  --get venue by name
+  public GetVenueByName : seq1 of char ==> Venue
+  GetVenueByName(iName) == (
+ 		return venues(iName);
+ 	)
+ 	pre iName in set dom venues;
+  	
+	--add band
+  public  AddBand : Band  ==> ()
+  AddBand(iBand) == (
+    bands := bands munion {iBand.name |-> iBand};
+	)
+  pre
+  	iBand.name not in set dom bands
+  post 
+		bands <> { |-> } and iBand.name in set dom bands;
+  --get band by name
+  public GetBandByName : seq1 of char ==> Band
+  GetBandByName(iName) == (
+ 		return bands(iName);
+ 	)
+ 	pre iName in set dom bands;
+ 	--add artist to band
+ 	public AddArtistToBand : seq1 of char * seq1 of char ==> ()
+ 	AddArtistToBand(iBand, iArtist) == (
+ 		bands(iBand).AddArtist(GetArtistByName(iArtist));
+ 	)
+ 	pre
+ 		iArtist in set dom artists and
+		iBand in set dom bands;
+
+
+  public  AddEvent : Event  ==> bool
+  AddEvent(iEvent) == (
+  	dcl free:bool:=true;
+  	for all event in set rng events do
+  		if iEvent.date.day = event.date.day and iEvent.date.month = event.date.month and iEvent.date.year = event.date.year and iEvent.time = event.time and iEvent.venue = event.venue or 
+  			iEvent.time < iEvent.venue.openingTime or iEvent.time > iEvent.venue.closingTime
+  		then free:=false;
+  	if free then(
+    	events := events munion {iEvent.name |-> iEvent};
+    	return true;
+    );
+    return false;
+	)
+	pre
+		iEvent.name not in set dom events and
+		iEvent.venue.name in set dom venues and
+		iEvent.band.name in set dom bands and
+		iEvent.organizer.name in set dom organizers;
+		
+  --get event by name
+  public GetEventByName : seq1 of char ==> Event
+  GetEventByName(iName) == (
+ 		return events(iName);
+ 	)
+ 	pre iName in set dom events;
+		
+  --get events by date
+  public GetEventsByDate : nat1 * nat1 * nat1 ==> set of Event
+  GetEventsByDate(iDay, iMonth, iYear) == (
+  	dcl eventSet:set of Event:={};
+  	for all event in set rng events do
+  		if event.date.day = iDay and event.date.month = iMonth and event.date.year = iYear then eventSet := eventSet union {event};
+ 		return eventSet;
+ 	);
+ 	
+ 	--cancel event
+	public CancelEvent : seq1 of char ==> ()
+	CancelEvent(iName) == (
+		dcl event:Event:=GetEventByName(iName);
+  	for all artist in set rng artists do
+  		for all e in set artist.events do
+  			if e = event then artist.RemoveEvent(event);
+  	for all organizer in set rng organizers do
+  		for all e in set organizer.events do
+  			if e = event then organizer.RemoveEvent(event);
+  	for all fan in set rng fans do
+  		for all e in set fan.events do
+  			if e = event then fan.RemoveEvent(event);
+		events :=  {iName} <-: events;
+	)
+	pre
+		iName in set dom events
+	post
+		iName not in set dom events;
+		
+	public AttendEvent : seq1 of char * seq1 of char ==> ()
+	AttendEvent(iUser, iEvent) == (
+		dcl event:Event:=GetEventByName(iEvent);
+		if card dom ({iUser} <: artists) > 0 then
+			artists(iUser).AddEvent(event)
+		elseif card dom ({iUser} <: organizers) > 0  then
+			organizers(iUser).AddEvent(event)
+		else
+			fans(iUser).AddEvent(event);
+	)
+ 	pre 
+ 		iUser in set (dom artists union dom organizers union dom fans) and
+ 		iEvent in set dom events;
+ 		
+	public CancelAttendEvent : seq1 of char * seq1 of char ==> ()
+	CancelAttendEvent(iUser, iEvent) == (
+		dcl event:Event:=GetEventByName(iEvent);
+		if card dom ({iUser} <: artists) > 0 then
+			artists(iUser).RemoveEvent(event)
+		elseif card dom ({iUser} <: organizers) > 0 then
+			organizers(iUser).RemoveEvent(event)
+		else
+			fans(iUser).RemoveEvent(event);
+	)
+ 	pre 
+ 		iUser in set (dom artists union dom organizers union dom fans) and
+ 		iEvent in set dom events;
+			
+		
+end Jyve

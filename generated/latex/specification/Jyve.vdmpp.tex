@@ -197,7 +197,7 @@ operations
   dcl event:Event:=GetEventByName(iName);
    for all artist in set rng artists do
     for all e in set artist.events do
-     if e = event then artist.RemoveEvent(event);
+     if e = event then artist.RemoveEvent((*@\vdmnotcovered{event}@*));
    for all organizer in set rng organizers do
     for all e in set organizer.events do
      if e = event then organizer.RemoveEvent(event);
@@ -235,9 +235,9 @@ operations
  CancelAttendEvent(iUser, iEvent) == (
   dcl event:Event:=GetEventByName(iEvent);
   if card dom ({iUser} <: artists) > 0 then
-   artists(iUser).RemoveEvent(event)
+   (*@\vdmnotcovered{artists}@*)(iUser).RemoveEvent((*@\vdmnotcovered{event}@*))
   elseif card dom ({iUser} <: organizers) > 0 then
-   organizers(iUser).RemoveEvent(event)
+   organizers((*@\vdmnotcovered{iUser}@*)).RemoveEvent((*@\vdmnotcovered{event}@*))
   else
    fans(iUser).RemoveEvent(event);
  )
@@ -248,3 +248,48 @@ operations
   
 end Jyve
 \end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[AddArtist:14]{AddArtist} & 14&100.0\% & 9 \\
+\hline
+\hyperref[AddArtistToBand:104]{AddArtistToBand} & 104&100.0\% & 3 \\
+\hline
+\hyperref[AddBand:89]{AddBand} & 89&100.0\% & 4 \\
+\hline
+\hyperref[AddEvent:113]{AddEvent} & 113&100.0\% & 2 \\
+\hline
+\hyperref[AddFan:54]{AddFan} & 54&100.0\% & 6 \\
+\hline
+\hyperref[AddOrganizer:34]{AddOrganizer} & 34&100.0\% & 6 \\
+\hline
+\hyperref[AddVenue:73]{AddVenue} & 73&100.0\% & 3 \\
+\hline
+\hyperref[AttendEvent:168]{AttendEvent} & 168&100.0\% & 1 \\
+\hline
+\hyperref[CancelAttendEvent:182]{CancelAttendEvent} & 182&86.6\% & 1 \\
+\hline
+\hyperref[CancelEvent:149]{CancelEvent} & 149&96.1\% & 6 \\
+\hline
+\hyperref[GetArtistByName:25]{GetArtistByName} & 25&100.0\% & 6 \\
+\hline
+\hyperref[GetBandByName:98]{GetBandByName} & 98&100.0\% & 2 \\
+\hline
+\hyperref[GetEventByName:133]{GetEventByName} & 133&100.0\% & 8 \\
+\hline
+\hyperref[GetEventsByDate:140]{GetEventsByDate} & 140&100.0\% & 2 \\
+\hline
+\hyperref[GetFanByName:65]{GetFanByName} & 65&100.0\% & 6 \\
+\hline
+\hyperref[GetOrganizerByName:45]{GetOrganizerByName} & 45&100.0\% & 2 \\
+\hline
+\hyperref[GetVenueByName:82]{GetVenueByName} & 82&100.0\% & 1 \\
+\hline
+\hline
+Jyve.vdmpp & & 98.2\% & 68 \\
+\hline
+\end{longtable}
+
