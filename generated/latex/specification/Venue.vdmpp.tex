@@ -1,0 +1,28 @@
+\begin{vdmpp}[breaklines=true]
+class Venue
+instance variables
+ public name:seq1 of char;
+  public address:seq1 of char;
+  public capacity:nat1;
+  public openingTime:nat;
+  public closingTime:nat;
+  
+  inv openingTime < 24;
+  inv closingTime < 25;
+
+operations
+(*@
+\label{Venue:13}
+@*)
+  public  Venue : seq1 of char * seq1 of char * nat1 * nat * nat  ==> Venue
+  Venue(iname, iaddress, icapacity, iopeningTime, iclosingTime) == (
+   name:=iname;
+   address:=iaddress;
+   capacity:=icapacity;
+   openingTime:=iopeningTime;
+   closingTime:=iclosingTime;
+   return self;
+  );
+
+end Venue
+\end{vdmpp}

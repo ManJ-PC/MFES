@@ -1,0 +1,14 @@
+class Fan is subclass of User 
+operations
+public  Fan : seq1 of char * seq of char * nat * seq1 of char * seq1 of char  ==> Fan
+  Fan(iName, iProfileDescription, iPhone, iMail, iAddress) == (
+	  name:=iName;
+	  profileDescription:=iProfileDescription;
+	  phone:=iPhone;
+	  mail:=iMail;
+	  address:=iAddress;
+	  events:={};
+	  return self;
+  );
+
+end Fan

@@ -1,0 +1,23 @@
+\begin{vdmpp}[breaklines=true]
+class Artist is subclass of User 
+instance variables
+  public instrument:seq1 of char;
+
+operations
+(*@
+\label{Artist:6}
+@*)
+  public  Artist : seq1 of char * seq of char * nat * seq1 of char * seq1 of char * seq1 of char ==> Artist
+  Artist(iName, iProfileDescription, iPhone, iMail, iAddress, iInstrument) == (
+   name:=iName;
+   profileDescription:=iProfileDescription;
+   phone:=iPhone;
+   mail:=iMail;
+   address:=iAddress;
+   events:={};
+   instrument:=iInstrument;
+   return self;
+  );
+  
+end Artist
+\end{vdmpp}

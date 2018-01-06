@@ -1,0 +1,20 @@
+class Date
+instance variables
+  public day:nat1;
+  public month:nat1;
+  public year:nat;
+	
+	inv if(month = 2) then day <= 28 elseif (month in set{1,3,5,7,8,10,12}) then month <= 31 else month <=30;
+	inv month <= 12;
+	inv year >= 1950 and year <= 2017;
+
+operations
+  public  Date : nat1 * nat1 * nat1  ==> Date
+  Date(iDay, iMonth, iYear) == (
+  	day:=iDay;
+  	month:=iMonth;
+  	year:=iYear;
+  	return self;
+  )
+
+end Date

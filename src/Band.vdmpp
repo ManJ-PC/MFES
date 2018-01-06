@@ -1,0 +1,46 @@
+class Band
+instance variables
+  public name:seq1 of char;
+  public artists: set of Artist;
+  public genre:seq of char;
+  public foundation:Date;
+  public description:seq of char;
+
+operations
+  public  Band : seq1 of char * set of Artist * seq1 of char * Date * seq of char  ==> Band
+  Band(iName, iArtists, iGenre, iFoundation, iDescription) == (
+	  name:=iName;
+	  artists:=iArtists;
+	  genre:=iGenre;
+	  foundation:=iFoundation;
+	  description:=iDescription;
+	  return self;
+  );
+  
+  public  Band : seq1 of char * seq1 of char * Date * seq of char  ==> Band
+  Band(iName, iGenre, iFoundation, iDescription) == (
+	  name:=iName;
+	  artists:={};
+	  genre:=iGenre;
+	  foundation:=iFoundation;
+	  description:=iDescription;
+	  return self;
+  );
+
+  public AddArtist : Artist  ==> ()
+  AddArtist(iArtist) == (
+    artists := artists union {iArtist};
+	)
+  pre
+  	not iArtist in set artists
+  post 
+		artists <> {};
+    
+  public RemoveArtist : Artist  ==> ()
+  RemoveArtist(iArtist) == (
+  	artists := artists \ {iArtist};
+  )
+  pre
+  	iArtist in set artists;
+  	
+end Band
