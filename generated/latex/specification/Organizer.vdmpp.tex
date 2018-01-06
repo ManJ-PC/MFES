@@ -1,0 +1,18 @@
+\begin{vdmpp}[breaklines=true]
+class Organizer  is subclass of User 
+operations
+(*@
+\label{Organizer:3}
+@*)
+  public  Organizer : seq1 of char * seq of char * nat * seq1 of char * seq1 of char  ==> Organizer
+  Organizer(iName, iProfileDescription, iPhone, iMail, iAddress) == (
+   name:=iName;
+   profileDescription:=iProfileDescription;
+   phone:=iPhone;
+   mail:=iMail;
+   address:=iAddress;
+   events:={};
+   return self;
+  );
+end Organizer
+\end{vdmpp}

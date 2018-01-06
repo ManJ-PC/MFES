@@ -1,0 +1,193 @@
+\begin{vdmpp}[breaklines=true]
+class JyveTest is subclass of MyTestCase
+instance variables
+operations
+(*@
+\label{Run:4}
+@*)
+ public static Run: () ==> ()
+ Run() == 
+ (
+  dcl jyveTest:JyveTest:=new JyveTest();
+  
+  IO`print("TestUsers -> ");
+  jyveTest.TestUsers();
+  IO`println("Success");
+  
+  IO`print("TestVenues -> ");
+  jyveTest.TestVenues();
+  IO`println("Success");
+  
+  IO`print("TestBands -> ");
+  jyveTest.TestBands();
+  IO`println("Success");
+  
+  IO`print("TestEvents -> ");
+  jyveTest.TestEvents();
+  IO`println("Success");
+ );
+ 
+(*@
+\label{TestUsers:26}
+@*)
+ public TestUsers : () ==> ()
+ TestUsers()==(
+  dcl jyve:Jyve:=new Jyve();
+  dcl art1:Artist:=new Artist("art1", "art1_desc", 546345633, "art1@mail", "road 1", "guitar");
+  dcl art2:Artist:=new Artist("art2", "art2_desc", 345367990, "art2@mail", "road 1", "singer");
+  dcl art3:Artist:=new Artist("art3", "art3_desc", 546345633, "art3@mail", "road 2", "drums");
+  dcl org1:Organizer:=new Organizer("org1", "org1_desc", 567038459, "org1@mail", "st1");
+  dcl org2:Organizer:=new Organizer("org2", "org2_desc", 234234456, "org2@mail", "st1");
+  dcl org3:Organizer:=new Organizer("org3", "org3_desc", 987564345, "org3@mail", "road 2");
+  dcl fan1:Fan:=new Fan("fan1", "fan1_desc", 245235789, "fan1@mail", "road 1");
+  dcl fan2:Fan:=new Fan("fan2", "fan2_desc", 345435678, "fan2@mail", "st2");
+  dcl fan3:Fan:=new Fan("fan3", "fan3_desc", 098765673, "fan3@mail", "st1");
+  
+  --duplicate names can't be used, regardless of role
+  --dcl artFail:Artist:=new Artist("user1", "art13_desc", 568896965, "art13@mail", "road 2", "lute");
+  --dcl orgFail:Organizer:=new Organizer("user1", "org21_desc", 678455345, "org21@mail", "st1");
+  --jyve.AddArtist(artFail);
+  --jyve.AddOrganizer(orgFail);
+  
+  
+  jyve.AddArtist(art1);
+  jyve.AddArtist(art2);
+  jyve.AddArtist(art3);
+  jyve.AddOrganizer(org1);
+  jyve.AddOrganizer(org2);
+  jyve.AddOrganizer(org3);
+  jyve.AddFan(fan1);
+  jyve.AddFan(fan2);
+  jyve.AddFan(fan3);
+  
+  assertEqual(card rng jyve.artists, 3);
+  assertEqual(jyve.GetArtistByName("art3"), art3);
+  
+  assertEqual(card rng jyve.organizers, 3);
+  assertEqual(jyve.GetOrganizerByName("org2"), org2);
+  
+  assertEqual(card rng jyve.fans, 3);
+  assertEqual(jyve.GetFanByName("fan3"), fan3);
+  
+ );
+ 
+
+(*@
+\label{TestVenues:68}
+@*)
+ public TestVenues : () ==> ()
+ TestVenues()==(
+  dcl jyve:Jyve:=new Jyve();
+  dcl venue1:Venue:=new Venue("venue1", "st1", 500, 7, 00);
+  dcl venue2:Venue:=new Venue("venue2", "st1", 5000, 7, 23);
+  --cannot have same name
+  --dcl venue3:Venue:=new Venue("venue1", "st3", 5000, 10, 22);
+  
+  jyve.AddVenue(venue2);
+  jyve.AddVenue(venue1);
+  --jyve.AddVenue(venue3);
+  
+  assertEqual(card rng jyve.venues, 2);
+  assertEqual(jyve.GetVenueByName("venue2"), venue2);
+ );
+ 
+(*@
+\label{TestBands:84}
+@*)
+ public TestBands : () ==> ()
+ TestBands()==(
+  dcl jyve:Jyve:=new Jyve();
+  dcl art1:Artist:=new Artist("art1", "art1_desc", 546345633, "art1@mail", "road 1", "guitar");
+  dcl art2:Artist:=new Artist("art2", "art2_desc", 345367990, "art2@mail", "road 1", "singer");
+  dcl art3:Artist:=new Artist("art3", "art3_desc", 546345633, "art3@mail", "road 2", "drums");
+  dcl band1:Band:=new Band("band1",{art1, art2}, "genre1", new Date(11,12,2016), "band1_desc");
+  dcl band2:Band:=new Band("band2", "genre1", new Date(1,1,2018), "band2_desc");
+  
+  jyve.AddArtist(art1);
+  jyve.AddArtist(art2);
+  jyve.AddArtist(art3);
+  
+  jyve.AddBand(band1);
+  jyve.AddBand(band2);
+  
+  jyve.AddArtistToBand("band1","art3");
+  
+  jyve.AddArtistToBand("band2","art1");
+  jyve.AddArtistToBand("band2","art3");
+  
+  assertEqual(jyve.GetBandByName("band1").artists, {art1,art2,art3});
+  assertEqual(jyve.GetBandByName("band2").artists, {art1,art3});
+  
+ );
+ 
+(*@
+\label{TestEvents:110}
+@*)
+ public TestEvents : () ==> ()
+ TestEvents()==(
+  dcl jyve:Jyve:=new Jyve();
+  dcl art1:Artist:=new Artist("art1", "art1_desc", 546345633, "art1@mail", "road 1", "guitar");
+  dcl art2:Artist:=new Artist("art2", "art2_desc", 345367990, "art2@mail", "road 1", "singer");
+  dcl art3:Artist:=new Artist("art3", "art3_desc", 546345633, "art3@mail", "road 2", "drums");
+  dcl org1:Organizer:=new Organizer("org1", "org1_desc", 567038459, "org1@mail", "st1");
+  dcl org2:Organizer:=new Organizer("org2", "org2_desc", 234234456, "org2@mail", "st1");
+  dcl org3:Organizer:=new Organizer("org3", "org3_desc", 987564345, "org3@mail", "road 2");
+  dcl fan1:Fan:=new Fan("fan1", "fan1_desc", 245235789, "fan1@mail", "road 1");
+  dcl fan2:Fan:=new Fan("fan2", "fan2_desc", 345435678, "fan2@mail", "st2");
+  dcl fan3:Fan:=new Fan("fan3", "fan3_desc", 098765673, "fan3@mail", "st1");
+  dcl band1:Band:=new Band("band1",{art1, art2}, "genre1", new Date(11,12,2016), "band1_desc");
+  dcl band2:Band:=new Band("band2",{art1,art2,art3}, "genre1", new Date(1,1,2018), "band2_desc");
+  dcl venue1:Venue:=new Venue("venue1", "st1", 500, 10, 24);
+  
+  dcl event1:Event:=new Event("event1", new Date(12,1,2017), 18, venue1, band1, org1);
+  dcl event2:Event:=new Event("event2", new Date(19,3,2017), 20, venue1, band2, org1);
+  dcl event3:Event:=new Event("event3", new Date(23,6,2016), 9, venue1, band1, org1);
+  dcl event4:Event:=new Event("event4", new Date(12,1,2017), 18, venue1, band1, org1);
+  
+  jyve.AddArtist(art1);
+  jyve.AddArtist(art2);
+  jyve.AddArtist(art3);
+  jyve.AddOrganizer(org1);
+  jyve.AddOrganizer(org2);
+  jyve.AddOrganizer(org3);
+  jyve.AddFan(fan1);
+  jyve.AddFan(fan2);
+  jyve.AddFan(fan3);
+  
+  jyve.AddBand(band1);
+  jyve.AddBand(band2);
+  
+  assertEqual(true, jyve.AddEvent(event1));
+  assertEqual(true,jyve.AddEvent(event2));
+  assertEqual(false, jyve.AddEvent(event3));
+  assertEqual(false, jyve.AddEvent(event4));
+  
+  assertEqual(rng jyve.events, {event1, event2});
+  
+  assertEqual(jyve.GetEventsByDate(12,1,2017), {event1});
+  assertEqual(jyve.GetEventsByDate(12,2,2017), {});
+  
+  jyve.AttendEvent("fan1","event1");
+  jyve.AttendEvent("art1","event1");
+  jyve.AttendEvent("fan1","event2");
+  jyve.AttendEvent("fan2","event2");
+  jyve.AttendEvent("org1","event1");
+  jyve.AttendEvent("org1","event2");
+  
+  assertEqual(card jyve.GetArtistByName("art1").events, 1);
+  assertEqual(card jyve.GetFanByName("fan1").events, 2);
+  assertEqual(card jyve.GetFanByName("fan2").events, 1);
+  
+  jyve.CancelAttendEvent("fan1","event1");
+  assertEqual(card jyve.GetFanByName("fan1").events, 1);
+  
+  jyve.CancelEvent("event2");
+  assertEqual(card jyve.GetArtistByName("art1").events, 1);
+  assertEqual(card jyve.GetFanByName("fan1").events, 0);
+  assertEqual(card jyve.GetFanByName("fan2").events, 0);
+  assertEqual(card jyve.GetFanByName("org1").events, 2);
+  
+  
+ );
+end JyveTest
+\end{vdmpp}
