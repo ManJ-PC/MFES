@@ -28,6 +28,11 @@ operations
  	)
  	pre 
  		iName in set dom artists;
+  --get artist list
+  public GetArtistList : () ==> set of Artist
+  GetArtistList() == (
+ 		return rng artists;
+ 	);
  	
  	
  	--add organizer
@@ -48,6 +53,11 @@ operations
  	)
   pre
   	iName in set dom organizers;
+  --get organizer list
+  public GetOrganizerList : () ==> set of Organizer
+  GetOrganizerList() == (
+ 		return rng organizers;
+ 	);
   	
   	
 	--add fan
@@ -67,6 +77,11 @@ operations
  		return fans(iName);
  	)
  	pre iName in set dom fans;
+  --get fan list
+  public GetFanlist : () ==> set of Fan
+  GetFanlist() == (
+ 		return rng fans;
+ 	);
 
   	
 	--add venue
@@ -84,6 +99,11 @@ operations
  		return venues(iName);
  	)
  	pre iName in set dom venues;
+  --get venue list
+  public GetVenueList : () ==> set of Venue
+  GetVenueList() == (
+ 		return rng venues;
+ 	);
   	
 	--add band
   public  AddBand : Band  ==> ()
@@ -100,6 +120,11 @@ operations
  		return bands(iName);
  	)
  	pre iName in set dom bands;
+  --get band list
+  public GetBandList : () ==> set of Band
+  GetBandList() == (
+ 		return rng bands;
+ 	);
  	--add artist to band
  	public AddArtistToBand : seq1 of char * seq1 of char ==> ()
  	AddArtistToBand(iBand, iArtist) == (
@@ -129,6 +154,11 @@ operations
 		iEvent.band.name in set dom bands and
 		iEvent.organizer.name in set dom organizers;
 		
+  --get event list
+  public GetEventList : () ==> set of Event
+  GetEventList() == (
+ 		return rng events;
+ 	);
   --get event by name
   public GetEventByName : seq1 of char ==> Event
   GetEventByName(iName) == (
