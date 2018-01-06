@@ -1,0 +1,39 @@
+class User
+instance variables
+  public name:seq1 of char;
+  public profileDescription:seq of char;
+  public phone:nat;
+  public mail:seq1 of char;
+  public address:seq1 of char;
+  public events:set of Event;
+
+operations
+  public  User : seq1 of char * seq of char * nat * seq1 of char * seq1 of char  ==> User
+  User(iName, iProfileDescription, iPhone, iMail, iAddress) == (
+	  name:=iName;
+	  profileDescription:=iProfileDescription;
+	  phone:=iPhone;
+	  mail:=iMail;
+	  address:=iAddress;
+	  events:={};
+	  return self;
+  );
+
+  public  AddEvent : Event  ==> ()
+  AddEvent(iEvent) == (
+    events := events union {iEvent};
+	)
+  pre
+  	not iEvent in set events
+  post 
+		events <> {};
+    
+  public  RemoveEvent : Event  ==> ()
+  RemoveEvent(iEvent) == (
+  	events := events \ {iEvent};
+  )
+  pre
+  	iEvent in set events;
+
+
+end User

@@ -47,11 +47,28 @@ operations
 \label{RemoveArtist:39}
 @*)
   public RemoveArtist : Artist  ==> ()
-  RemoveArtist(iArtist) == (
-   artists := artists \ {iArtist};
+  RemoveArtist(iArtist) == (*@\vdmnotcovered{(}@*)
+   (*@\vdmnotcovered{artists}@*) := (*@\vdmnotcovered{artists}@*) (*@\vdmnotcovered{\textbackslash }@*) (*@\vdmnotcovered{\{}@*)(*@\vdmnotcovered{iArtist}@*)};
   )
   pre
-   iArtist in set artists;
+   (*@\vdmnotcovered{iArtist}@*) (*@\vdmnotcovered{in}@*) set (*@\vdmnotcovered{artists}@*);
    
 end Band
 \end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[AddArtist:30]{AddArtist} & 30&100.0\% & 3 \\
+\hline
+\hyperref[Band:10]{Band} & 10&100.0\% & 1 \\
+\hline
+\hyperref[RemoveArtist:39]{RemoveArtist} & 39&0.0\% & 0 \\
+\hline
+\hline
+Band.vdmpp & & 81.2\% & 4 \\
+\hline
+\end{longtable}
+
