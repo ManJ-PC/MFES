@@ -1,9 +1,9 @@
 class Artist is subclass of User 
 instance variables
-  public instrument:seq1 of char;
+  public instrument:seq of char;
 
 operations
-  public  Artist : seq1 of char * seq of char * nat * seq1 of char * seq1 of char * seq1 of char ==> Artist
+  public  Artist : seq1 of char * seq of char * nat * seq1 of char * seq1 of char * seq of char ==> Artist
   Artist(iName, iProfileDescription, iPhone, iMail, iAddress, iInstrument) == (
 	  name:=iName;
 	  profileDescription:=iProfileDescription;

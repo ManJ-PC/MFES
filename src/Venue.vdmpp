@@ -6,8 +6,8 @@ instance variables
   public openingTime:nat;
   public closingTime:nat;
   
-  inv openingTime < 24;
   inv closingTime < 25;
+  inv openingTime < closingTime;
 
 operations
   public  Venue : seq1 of char * seq1 of char * nat1 * nat * nat  ==> Venue

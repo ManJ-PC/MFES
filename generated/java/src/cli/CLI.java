@@ -36,19 +36,15 @@ public class CLI {
 		{
 		case "1":
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "2":
 			VenueMenu(true);
-			MainMenu();
 			break;
 		case "3":
 			BandMenu(true);
-			MainMenu();
 			break;
 		case "4":
 			EventMenu(true);
-			MainMenu();
 			break;
 		default:
 			MainMenu();
@@ -72,63 +68,58 @@ public class CLI {
 		opt.add("Attend Event");
 		opt.add("Cancel Event Attendance");
 		
-		switch(OptionInput(opt, false))
+		switch(OptionInput(opt, hasParent))
 		{
 		case "1":
 			ListUsers("",true,true,true);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "2":
-			VenueMenu(true);
+			AddUser(0);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "3":
 			ListUsers("",true,false,false);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "4":
+			System.out.println("Write the user name:");
 			ListUsers(scanner.nextLine(),true,false,false);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "5":
+			AddUser(1);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "6":
 			ListUsers("",false,true,false);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "7":
+			System.out.println("Write the user name:");
 			ListUsers(scanner.nextLine(),false,true,false);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "8":
+			AddUser(2);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "9":
 			ListUsers("",false,false,true);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "10":
+			System.out.println("Write the user name:");
 			ListUsers(scanner.nextLine(),false,false,true);
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "11":
+			//TODO
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "12":
+			//TODO
 			UserMenu(true);
-			MainMenu();
 			break;
 		case "b":
 			break;
@@ -136,7 +127,7 @@ public class CLI {
 			MainMenu();
 			break;
 		default:
-			MainMenu();
+			UserMenu(true);
 			break;
 		}
 	}
@@ -144,6 +135,7 @@ public class CLI {
 	private void ListUsers(String search, boolean art, boolean org, boolean fan) {
 		try {
 		if(art) {
+			System.out.println("==== Artists =====");
 			if(search.equals("")) {
 				for(Object a : jyve.GetArtistList()) {
 					System.out.println(((Artist) a).name);
@@ -160,6 +152,7 @@ public class CLI {
 			}
 		}
 		if(org) {
+			System.out.println("=== Organizers ===");
 			if(search.equals("")) {
 				for(Object a : jyve.GetOrganizerList()) {
 					System.out.println(((Organizer) a).name);
@@ -174,6 +167,7 @@ public class CLI {
 			}
 		}
 		if(fan) {
+			System.out.println("====== Fans ======");
 			if(search.equals("")) {
 				for(Object a : jyve.GetFanlist()) {
 					System.out.println(((Fan) a).name);
@@ -192,14 +186,187 @@ public class CLI {
 		}
 	}
 	
-	private void VenueMenu(boolean hasParent){
+	private void AddUser(int type) {
+		String userType = "";
+		switch(type) {
+		case 0:
+			userType="artist";
+			break;
+		case 1:
+			userType="organizer";
+			break;
+		case 2:
+			userType="fan";
+			break;
+		default:
+			break;
+		}
 		
+		System.out.println("Write the " + userType + " name:");
+		String name = scanner.nextLine();
+		System.out.println("Write a brief bio/description:");
+		String bio = scanner.nextLine();
+		System.out.println("Write the " + userType + " phone number (9 digits):");
+		int phone = IntInput(9);
+		System.out.println("Write the " + userType + " email:");
+		String mail = scanner.nextLine();
+		System.out.println("Write the " + userType + " address:");
+		String address = scanner.nextLine();
+		
+		try {
+			switch(type) {
+			case 0:
+				System.out.println("Write the " + userType + " instrument:");
+				String instrument = scanner.nextLine();
+				jyve.AddArtist(new Artist(name, bio, phone, mail, address, instrument));
+				break;
+			case 1:
+				jyve.AddOrganizer(new Organizer(name, bio, phone, mail, address));
+				break;
+			case 2:
+				jyve.AddFan(new Fan(name, bio, phone, mail, address));
+				break;
+			default:
+				break;
+			}
+		}catch(Exception e) {
+			System.out.println("User name already used or invalid info.");
+		}
+	}
+	
+	private void VenueMenu(boolean hasParent){
+		System.out.println("User Menu");
+		ArrayList<String> opt = new ArrayList<>();
+		opt.add("List all");
+		opt.add("Add Venue");
 	}
 	private void BandMenu(boolean hasParent){
-		
+		System.out.println("User Menu");
+		ArrayList<String> opt = new ArrayList<>();
+		opt.add("List all");
+		opt.add("Add Band");
+		opt.add("Add Artist");
+		opt.add("List Artist");
 	}
 	private void EventMenu(boolean hasParent){
-		
+		System.out.println("User Menu");
+		ArrayList<String> opt = new ArrayList<>();
+		opt.add("List all");
+		opt.add("Add Event");
+		opt.add("Search Event by Name");
+		opt.add("Search Event by Date");
+		opt.add("Cancel Event");
+
+		switch(OptionInput(opt, hasParent))
+		{
+		case "1":
+			ListEvents();
+			EventMenu(true);
+			break;
+		case "2":
+			AddEvent();
+			EventMenu(true);
+			break;
+		case "3":
+			System.out.println("Write the event name:");
+			ListEventsByName(scanner.nextLine());
+			EventMenu(true);
+			break;
+		case "4":
+			System.out.println("Write the event date (format dd-mm-yyyy):");
+			ListEventsByDay(DateInput());
+			EventMenu(true);
+			break;
+		case "5":
+			System.out.println("Write the event name:");
+			CancelEvent(scanner.nextLine());
+			EventMenu(true);
+			break;
+		case "b":
+			break;
+		case "m":
+			MainMenu();
+			break;
+		default:
+			UserMenu(true);
+			break;
+		}
+	}
+	
+	private void ListEvents() {
+		System.out.println("===== Events =====");
+		for(Object o : jyve.GetEventList()) {
+			System.out.println("\n"+((Event) o).name);
+			System.out.println("\tdate: "+((Event) o).date);
+			System.out.println("\ttime: "+((Event) o).time);
+			System.out.println("\tband: "+((Event) o).band);
+			System.out.println("\tvenue: "+((Event) o).venue);
+		}
+	}
+
+	private void ListEventsByName(String filter) {
+		System.out.println("===== Events =====");
+		Event e = jyve.GetEventByName(filter);
+		System.out.println("\n"+ e.name);
+		System.out.println("\tdate: "+e.date);
+		System.out.println("\ttime: "+e.time);
+		System.out.println("\tband: "+e.band);
+		System.out.println("\tvenue: "+e.venue);
+	}
+	
+	private void  AddEvent() {
+		try {
+			if(jyve.GetBandList().size()==0) {
+				System.out.println("Warning: No band records were found. Add a band to the system before proceeding.");
+				return;
+			}
+			if(jyve.GetVenueList().size()==0){
+				System.out.println("Warning: No venue records were found. Add a venue to the system before proceeding.");
+				return;
+			}
+			if(jyve.GetOrganizerList().size()==0){
+				System.out.println("Warning: No organizer records were found. Add an organizer to the system before proceeding.");
+				return;
+			}
+
+			System.out.println("Write the event name:");
+			String name = scanner.nextLine();
+			System.out.println("Write the time of the event (format hh):");
+			int time = IntInput(2);
+			System.out.println("Write the event date (format dd-mm-yyyy):");
+			int[] dateTokens = DateInput();
+			Date date = new Date(dateTokens[0],dateTokens[1],dateTokens[2]);
+			System.out.println("Write the band name:");
+			Band band = jyve.GetBandByName(scanner.nextLine());
+			System.out.println("Write the venue name:");
+			Venue venue = jyve.GetVenueByName(scanner.nextLine());
+			System.out.println("Write the organizer name:");
+			Organizer org = jyve.GetOrganizerByName(scanner.nextLine());
+			
+			jyve.AddEvent(new Event(name, date, time, venue, band, org));
+			
+		}catch(Exception e){
+			System.out.println("Invalid details provided...");
+		}
+	}
+	
+	private void CancelEvent(String filter) {
+		try {
+			jyve.CancelEvent(filter);
+		}catch(Exception e) {
+			System.out.println("Event does not exist.");
+		}
+	}
+	
+	private void ListEventsByDay(int[] filter) {
+		System.out.println("===== Events =====");
+		for(Object o : jyve.GetEventsByDate(filter[0],filter[1],filter[2])) {
+			System.out.println("\n"+((Event) o).name);
+			System.out.println("\tdate: "+((Event) o).date);
+			System.out.println("\ttime: "+((Event) o).time);
+			System.out.println("\tband: "+((Event) o).band);
+			System.out.println("\tvenue: "+((Event) o).venue);
+		}
 	}
 	
 	
@@ -216,7 +383,7 @@ public class CLI {
 		boolean validInput=false;
 		String input="";
 		while(!validInput) {
-			input = scanner.nextLine();
+			input = scanner.nextLine().toLowerCase();
 			validInput=IsValidInput(opt.size(), hasParent, input);
 			if(!validInput)
 				PrintInvalidInput();
@@ -245,6 +412,38 @@ public class CLI {
 	
 	private void PrintInvalidInput() {
 		System.out.println("Invalid input received...");
+	}
+
+	private int IntInput(int length) {
+		boolean valid=false;
+		String input="";
+		while(!valid) {
+			try {
+				input=scanner.nextLine();
+				if((length!=0 && input.length()==length) || length == 0)  {
+					valid=true;
+				}
+			}catch (Exception e) {	}
+		}
+		return Integer.parseInt(input);
+	}
+	
+	private int[] DateInput() {
+		boolean valid=false;
+		String input="";
+		String[] tokens = new String[3];
+		int[] date = new int[3];
+		while(!valid) {
+			try {
+				input=scanner.nextLine();
+				tokens=input.split("-");
+				date[0]=Integer.parseInt(tokens[0]);
+				date[1]=Integer.parseInt(tokens[1]);
+				date[2]=Integer.parseInt(tokens[2]);
+				valid=true;
+			}catch (Exception e) {	}
+		}
+		return date;
 	}
 
 }

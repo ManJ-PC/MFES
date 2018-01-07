@@ -1,8 +1,0 @@
-class Fan
-operations
-  public  Fan : ()  ==> Fan
-  Fan() ==
-    is not yet specified;
-
-
-end Fan
